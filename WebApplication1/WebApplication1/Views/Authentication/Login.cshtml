@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.UserDetails
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>    @*//登陆页面的 服务器端验证 和客户端验证 区别虽然最终画面一样，但是 服务器端验证需要点击 login后才显示 报错信息， 而客户端验证输入后直接 显示报错信息*@
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <div> 
+        @Html.ValidationMessage("CredentialError",new {style="color:red;" })
+        @using (Html.BeginForm("DoLogin", "Authentication", FormMethod.Post))
+        {
+            @Html.LabelFor(c => c.UserName)            //UserName 文本框的值是如何被重置的？ HTML 帮助类会从Post 数据中获取相关值并重置文本框的值。这是使用HTML 帮助类的一大优势。
+            @Html.TextBoxFor(x => x.UserName)
+            @Html.ValidationMessageFor(x => x.UserName)
+            <br />
+
+            @Html.LabelFor(c => c.Password)
+            @Html.TextBoxFor(x => x.Password)
+            <br />
+
+            <input type="submit" name="BtnSubmit" value="Login"/>
+
+
+
+        }
+    </div>
+</body>
+</html>
